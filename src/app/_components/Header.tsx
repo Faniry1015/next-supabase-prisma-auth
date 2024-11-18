@@ -1,12 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import Logout from "./Logout";
+import { useAuth } from "../context/AuthContextProvider";
 
 export default function Header() {
+    const authContext = useAuth();
+    useEffect(() => {
+        const user = authContext?.user;
+        const isLoggedIn = user !== null;
+        setIsLoggedIn(isLoggedIn);
+    })
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Simule l'état de connexion
 
-  const handleSignOut = () => setIsLoggedIn(false);
 
   return (
     <header className="bg-white shadow-md">
@@ -35,12 +42,7 @@ export default function Header() {
           {/* Bouton Sign In/Out */}
           <div>
             {isLoggedIn ? (
-              <button
-                onClick={handleSignOut}
-                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-              >
-                Sign Out
-              </button>
+                <div className="text-gray-700 d-flex"> <span> Bonjour {authContext?.user?.email} </span><Logout /></div>
             ) : (
               <Link href="/login">
                 <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
