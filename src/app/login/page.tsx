@@ -9,29 +9,29 @@ export default function Login() {
 
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    // const formData = new FormData(formRef.current as HTMLFormElement);
-    // const email = formData.get("email") as string;
-    // const password = formData.get("password") as string;
-    // if (!email || !password) {
-    //   window.alert("Veuillez remplir tous les champs");
-    // }
-    // try {
-    //   if (e.currentTarget.id === "signin") {
-    //     let { data, error } = await supabase.auth.signUp({
-    //       email: email,
-    //       password: password,
-    //     });
-    //     if (data) console.log(data);
-    //   } else if (e.currentTarget.id === "signup") {
-    //     let { data, error } = await supabase.auth.signUp({
-    //       email: email,
-    //       password: password,
-    //     });
-    //     if (data) console.log(data);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    const formData = new FormData(formRef.current as HTMLFormElement);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    if (!email || !password) {
+      window.alert("Veuillez remplir tous les champs");
+    }
+    try {
+      if (e.currentTarget.id === "signup") {
+        let { data, error } = await supabase.auth.signUp({
+          email: email,
+          password: password,
+        });
+        if (data) console.log(data);
+      } else if (e.currentTarget.id === "signin") {
+        let { data, error } = await supabase.auth.signInWithPassword({
+          email: email,
+          password: password,
+        });
+        if (data) console.log(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   
   return (

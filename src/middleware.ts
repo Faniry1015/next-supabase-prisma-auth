@@ -7,6 +7,7 @@ export const middleware = async (req: NextRequest) =>{
     const {
         data: { session },
       } = await surpabase.auth.getSession();
+      console.log(session)
 
     if (!session) {
         return NextResponse.rewrite(new URL("/login", req.url));
